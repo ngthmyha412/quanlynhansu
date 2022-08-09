@@ -1,19 +1,15 @@
 @extends('layouts.admin')
 @section('content')
-<div class="container">
+<div class="">
     <h4 class="grey-text text-darken-2 center">Department Management</h4>
     @component('sys_mg.inc.search',['title' => 'Department' , 'route' => 'departments.search'])
     @endcomponent
     
-    <div class="row">
-        <div class="card col-sm-12">
-        <h2 class="col-sm-11" ></h2>
-        <div class="col-sm-1">
-            <a class="" href="{{route('departments.create')}}">
-                <i class="fa fa-plus-circle fa-2x"></i>
-            </a>
-        </div> 
-            <table class="table col-sm-12">
+    <div class="row" style="width:100%; margin-top:20px;padding: 0 12px;">
+        <div class="col-sm-12 row">
+            @component('sys_mg.inc.add',['title' => 'Department' , 'route' => 'departments.create'])
+            @endcomponent
+            <table class="table-bg table col-sm-12">
                 <thead class="grey-text text-darken-2">
                     <tr>
                         <th>ID</th>
@@ -32,17 +28,8 @@
                                 <td>{{$department->created_at}}</td>
                                 <td>{{$department->updated_at}}</td>
                                 <td>
-                                    <div class="row mb-0">
-                                        <div class="col">
-                                            <a href="{{route('departments.edit',$department->id)}}" class="btn btn-floating btn-small waves=effect waves-light orange"><i class="material-icons">mode_edit</i></a>
-                                        </div>
-                                        <div class="col">
-                                            <form action="{{route('departments.destroy',$department->id)}}" method="POST">
-                                                @csrf()
-                                                <button type="submit" class="btn btn-floating btn-small waves=effect waves-light red"><i class="material-icons">delete</i></button>
-                                            </form>
-                                        </div>
-                                    </div>
+                                    @component('sys_mg.inc.action',['title' => 'Department' , 'route01' => 'departments.edit', 'route02' => 'departments.destroy', 'id' => [$department->id]])
+                                    @endcomponent
                                 </td>
                             </tr>
                         @endforeach
@@ -62,7 +49,7 @@
             </table>
         </div>
         <div class="center" id="pagination">
-            {{$departments->links('vendor.pagination.default',['paginator' => $departments])}}
+            {{$departments->render("pagination::bootstrap-5")}}
         </div>
     </div>
 </div>

@@ -1,26 +1,18 @@
 @extends('layouts.admin')
 @section('content')
-<div class="container">
-    <h4 class="grey-text text-darken-2 center">Division Management</h4>
-    
-    {{-- Include the searh component with with title and route --}}
+<div class="card-content">
+    <h4 class="list-title uppercase-text">quan ly bo phan</h4>
     @component('sys_mg.inc.search',['title' => 'Division' , 'route' => 'divisions.search'])
     @endcomponent
-    
+
     <div class="row">
-        <!-- Show All Division List as a Card -->
-        <div class="card col-sm-12">
+        <div class="col-sm-12">
             <div class="card-content">
                 <div class="row">
-                    <h5 class="col-sm-11">Division List</h5>
-                    <div class="col-sm-1">
-                        <a class="" href="{{route('divisions.create')}}">
-                            <i class="fa fa-plus-circle fa-2x"></i>
-                        </a>
-                    </div>
-                    <!-- Table that shows Division List -->
-                    <table class="table col-sm-12">
-                        <thead class="grey-text text-darken-2">
+                    @component('sys_mg.inc.add',['title' => 'City' , 'route' => 'divisions.create'])
+                    @endcomponent
+                    <table class="table-bg table col-sm-12">
+                        <thead class="grey-text text-darken-1">
                             <tr>
                                 <th>ID</th>
                                 <th>Division Name</th>
@@ -39,18 +31,8 @@
                                         <td>{{$division->created_at}}</td>
                                         <td>{{$division->updated_at}}</td>
                                         <td>
-                                            <div class="row">
-                                              <div class="col-sm-6">
-                                                    <a href="{{route('divisions.edit',$division->id)}}" class="btn btn-floating btn-small waves=effect waves-light orange"><i class="fa fa-edit"></i></a>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <form action="{{route('divisions.destroy',$division->id)}}" method="POST">
-                                                        @method('DELETE')
-                                                        @csrf()
-                                                        <button type="submit" class="btn btn-floating btn-small waves=effect waves-light red"><i class="fa fa-trash"></i></button>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                            @component('sys_mg.inc.action',['title' => 'Divisions' , 'route01' => 'divisions.edit', 'route02' => 'divisions.destroy', 'id' => [$division->id]])
+                                            @endcomponent
                                         </td>
                                     </tr>
                                 @endforeach
@@ -73,7 +55,7 @@
                 </div>
                 <!-- Show Pagination Links -->
                 <div class="center">
-                  {{$divisions->links('vendor.pagination.default',['paginator' => $divisions])}}
+                  {{$divisions->render("pagination::bootstrap-5")}}
                 </div>
             </div>
         </div>

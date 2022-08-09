@@ -7,18 +7,18 @@
                 <div class="card-content">
                     <div class="row">
                         <form class="form-group" action="{{route('cities.store')}}" method="POST">
-                            <div class="input-field no-margin">
-                                <input type="text" name="city_name" id="city_name" class="validate form-control" value="{{Request::old('city_name') ? : ''}}">
+                            <div class="mb-3 mt-3">
                                 <label for="city_name">City Name</label>
-                                <span class="{{$errors->has('city_name') ? 'helper-text red-text' : '' }}">{{$errors->first('city_name')}}</span>
+                                <input type="text" name="city_name" id="city_name" class="validate form-control" value="{{Request::old('city_name') ? : ''}}">
+                                <p class="{{$errors->has('city_name') ? 'alert alert-danger' : '' }}">{{$errors->first('city_name')}}</p>
                             </div>
-                            <div class="input-field">
-                                <input type="number" name="zip_code" id="zip_code" class="validate" value="{{Request::old('zip_code') ? : ''}}">
+                            <div class="mb-3">
                                 <label for="zip_code">Zip Code</label>
-                                <span class="{{$errors->has('zip_code') ? 'helper-text red-text' : '' }}">{{$errors->first('zip_code')}}</span>
+                                <input type="number" name="zip_code" id="zip_code" class="validate form-control" value="{{Request::old('zip_code') ? : ''}}">
+                                <p class="{{$errors->has('zip_code') ? 'alert alert-danger' : '' }}">{{$errors->first('zip_code')}}</p>
                             </div>
                             @csrf()
-                            <button type="submit" class="btn waves-effect waves-light col s6 offset-s3 m4 offset-m4 l4 offset-l4 xl4-offset-xl4">Add</button>
+                            <button type="submit" class="mb-3 btn btn-primary">Add</button>
                         </form>
                     </div>
                 </div>

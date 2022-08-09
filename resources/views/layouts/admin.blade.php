@@ -9,6 +9,7 @@
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">  
     <link href="{{asset('plugins/font-awesome-4.7.0/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -21,5 +22,7 @@
     <script src="{{asset('js/Chart.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}" ></script>
+    <script src="{{asset('js/bootstrap.bundle.js')}}" ></script>
+    <script src="{{asset('js/bootstrap-datepicker.min.js')}}" ></script>
 </body>
 </html>

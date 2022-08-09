@@ -26,9 +26,9 @@ use App\Http\Controllers\ResetPassword\ResetPasswordController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/home', function () {
+    return view('welcome');
+});
 
 Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
 
@@ -39,7 +39,7 @@ Route::controller(DepartmentsController::class)->group(function (){
     Route::post('/departments/create','store')->name('departments.store');
     Route::get('/departments/edit/{id}','edit')->name('departments.edit');
     Route::post('/departments/edit/{id}','update')->name('departments.update');
-    Route::post('/departments/destroy','destroy')->name('departments.destroy');
+    Route::post('/departments/destroy/{id}','destroy')->name('departments.destroy');
 });
 
 Route::controller(CitiesController::class)->group(function (){
@@ -49,7 +49,7 @@ Route::controller(CitiesController::class)->group(function (){
     Route::post('/cities/create','store')->name('cities.store');
     Route::get('/cities/edit/{id}','edit')->name('cities.edit');
     Route::post('/cities/edit/{id}','update')->name('cities.update');
-    Route::post('/cities/destroy','destroy')->name('cities.destroy');
+    Route::post('/cities/destroy/{id}','destroy')->name('cities.destroy');
 });
 
 Route::controller(EmployeesController::class)->group(function (){
@@ -59,7 +59,8 @@ Route::controller(EmployeesController::class)->group(function (){
     Route::post('/employees/create','store')->name('employees.store');
     Route::get('/employees/edit/{id}','edit')->name('employees.edit');
     Route::post('/employees/edit/{id}','update')->name('employees.update');
-    Route::post('/employees/destroy','destroy')->name('employees.destroy');
+    Route::post('/employees/destroy/{id}','destroy')->name('employees.destroy');
+    Route::get('/employees/show/{id}','show')->name('employees.show');
 });
 
 Route::controller(CountriesController::class)->group(function (){
@@ -69,7 +70,7 @@ Route::controller(CountriesController::class)->group(function (){
     Route::post('/conutries/create','store')->name('conutries.store');
     Route::get('/conutries/edit/{id}','edit')->name('conutries.edit');
     Route::post('/conutries/edit/{id}','update')->name('conutries.update');
-    Route::post('/conutries/destroy','destroy')->name('conutries.destroy');
+    Route::post('/conutries/destroy/{id}','destroy')->name('conutries.destroy');
 });
 
 Route::controller(StatesController::class)->group(function (){
@@ -79,7 +80,7 @@ Route::controller(StatesController::class)->group(function (){
     Route::post('/states/create','store')->name('states.store');
     Route::get('/states/edit/{id}','edit')->name('states.edit');
     Route::post('/states/edit/{id}','update')->name('states.update');
-    Route::post('/states/destroy','destroy')->name('states.destroy');
+    Route::post('/states/destroy/{id}','destroy')->name('states.destroy');
 });
 
 Route::controller(DivisionsController::class)->group(function (){
@@ -89,7 +90,7 @@ Route::controller(DivisionsController::class)->group(function (){
     Route::post('/divisions/create','store')->name('divisions.store');
     Route::get('/divisions/edit/{id}','edit')->name('divisions.edit');
     Route::post('/divisions/edit/{id}','update')->name('divisions.update');
-    Route::post('/divisions/destroy','destroy')->name('divisions.destroy');
+    Route::post('/divisions/destroy/{id}','destroy')->name('divisions.destroy');
 });
 
 Route::controller(SalariesController::class)->group(function (){
@@ -99,7 +100,7 @@ Route::controller(SalariesController::class)->group(function (){
     Route::post('/salaries/create','store')->name('salaries.store');
     Route::get('/salaries/edit/{id}','edit')->name('salaries.edit');
     Route::post('/salaries/edit/{id}','update')->name('salaries.update');
-    Route::post('/salaries/destroy','destroy')->name('salaries.destroy');
+    Route::post('/salaries/destroy/{id}','destroy')->name('salaries.destroy');
 });
 
 //show the login view

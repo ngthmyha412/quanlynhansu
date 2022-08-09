@@ -1,22 +1,17 @@
 @extends('layouts.admin')
 @section('content')
-<div class="container">
-    <h4 class="grey-text text-darken-2 center">City Management</h4>
+<div class="card-content">
+    <h4 class="list-title uppercase-text">quan ly thanh pho</h4>
     @component('sys_mg.inc.search',['title' => 'City' , 'route' => 'cities.search'])
     @endcomponent
 
     <div class="row">
-        <!-- Show All Cities List as a Card -->
-        <div class="card col-sm-12">
+        <div class="col-sm-12">
             <div class="card-content">
                 <div class="row">
-                    <h5 class="col-sm-11">Cities List</h5>
-                    <div class="col-sm-1">
-                        <a class="btn-floating btn-large waves=effect waves-light red" href="{{route('cities.create')}}">
-                            <span class="fa fa-plus-circle fa-2x"></span>
-                        </a>
-                    </div> 
-                    <table class="table col-sm-12">
+                    @component('sys_mg.inc.add',['title' => 'City' , 'route' => 'cities.create'])
+                    @endcomponent
+                    <table class="table-bg table col-sm-12">
                         <thead class="grey-text text-darken-1">
                             <tr>
                                 <th>ID</th>
@@ -38,17 +33,8 @@
                                         <td>{{$city->created_at}}</td>
                                         <td>{{$city->updated_at}}</td>
                                         <td>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <a href="{{route('cities.edit',$city->id)}}" class="btn btn-floating btn-small waves=effect waves-light orange"><i class="fa fa-edit"></i></a>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <form onsubmit="return confirm('Do you really want to delete?');" action="{{route('cities.destroy',$city->id)}}" method="POST">
-                                                        @csrf()
-                                                        <button type="submit" class=""><i class="fa fa-trash"></i></button>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                            @component('sys_mg.inc.action',['title' => 'City' , 'route01' => 'cities.edit', 'route02' => 'cities.destroy', 'id' => [$city->id]])
+                                            @endcomponent
                                         </td>
                                     </tr>
                                 @endforeach
@@ -71,7 +57,7 @@
                 </div>
                 <!-- Show Pagination Links -->
                 <div class="center">
-                  {{$cities->links('vendor.pagination.default',['paginator' => $cities])}}
+                    {{$cities->render("pagination::bootstrap-5")}}
                 </div>
             </div>
         </div>

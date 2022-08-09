@@ -6,14 +6,14 @@
     <div class="row">
         <div class="collapsible-body">
             <div class="row">
-                <form class="row col-sm-12" action="{{route('employees.search')}}" method="POST">
+                <form class="row form-group col-sm-12" action="{{route('employees.search')}}" method="POST">
                     @csrf()
-                    <div class="input-field col-sm-7">
-                        <input id="search" type="text" name="search" placeholder="Search...">
+                    <div class="col-sm-7">
+                        <input id="search" type="text" class="form-control" name="search" placeholder="Search...">
                         <span class="{{$errors->has('search') ? 'helper-text red-text' : '' }}">{{$errors->has('search') ? $errors->first('search') : '' }}</span>
                     </div>
-                    <div class="input-field col-sm-3">
-                        <select name="options" id="options">
+                    <div class="col-sm-3">
+                        <select class="form-control" name="options" id="options">
                             <option value="first_name">First Name</option>
                             <option value="last_name">Last Name</option>
                             <option value="email">Email</option>
@@ -22,7 +22,7 @@
                     </div>
                     <br>
                     <div class="col-sm-2">
-                        <button type="submit" class="">Search</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </div>
                 </form>
             </div>
@@ -54,14 +54,14 @@
                         <tr>
                             <td>{{$employee->id}}</td>
                             <td>
-                            <img class="emp-img" src="{{asset('storage/employee_images/'.$employee->picture)}}">
+                            <img class="emp-img" src="{{Storage::url('/employee_images/'.$employee->picture)}}" width="40px" height="40px">
                             </td>
                             <td>{{$employee->first_name}} {{$employee->last_name}}</td>
-                            <td>{{$employee->empDepartment->dept_name}}</td>
-                            <td>{{$employee->empDivision->division_name}}</td>
+                            <td>{{$employee->dept_name}}</td>
+                            <td>{{$employee->division_name}}</td>
                             <td>{{$employee->join_date}}</td>
                             <td>
-                            <a href="{{route('employees.show',$employee->id)}}" class="btn btn-small btn-floating waves=effect waves-light teal lighten-2"><i class="material-icons">list</i></a>
+                            <a href="{{route('employees.show',$employee->id)}}" class="btn btn-small btn-floating waves=effect waves-light teal lighten-2"><i class="fa fa-list"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -75,7 +75,7 @@
                 @else
                     {{-- if there are no employees then show this message --}}
                     <tr>
-                        <td colspan="5"><h6 class="grey-text text-darken-2 center">No Employees Found!</h6></td>
+                        <td colspan="5"><h6 class="">No Employees Found!</h6></td>
                     </tr>
                 @endif
             </tbody>

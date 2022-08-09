@@ -5,10 +5,7 @@
             <canvas id="employee"></canvas>
         </div>
     </div>
-    <br>
     <script src="{{asset('js/Chart.js')}}"></script>
-    
-    {{-- Create the chart with javascript using canvas --}}
     <script>
         // Get Canvas element by its id
         employee_chart = document.getElementById('employee').getContext('2d');

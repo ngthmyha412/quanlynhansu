@@ -30,8 +30,19 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = Employee::Paginate(4);
-        return view('employee.index')->with('employees',$employees);
+        $employees = Employee::join('departments', 'dept_id', '=', 'dept_id')
+                            ->join('divisions', 'division_id', '=', 'division_id')
+                            // ->join('cities', 'city_id', '=', 'city_id')
+                            // ->join('countries', 'country_id', '=', 'country_id')
+                            // ->join('genders', 'gender_id', '=', 'gender_id')
+                            // ->join('states', 'state_id', '=', 'state_id')
+                            // ->join('salaries', 'salary_id', '=', 'salary_id')
+                            //, 'cities.*', 'countries.*', 'genders.*', 'states.*', 'salaries.*'
+                            ->select('employees.*','departments.*','divisions.*')
+                            ->paginate(4);
+        return view('employee.index')->with([
+            'employees'    => $employees,
+        ]);
     }
 
     /**
@@ -87,7 +98,15 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::join('departments', 'dept_id', '=', 'dept_id')
+                            ->join('divisions', 'division_id', '=', 'division_id')
+                            ->join('cities', 'city_id', '=', 'city_id')
+                            ->join('countries', 'country_id', '=', 'country_id')
+                            ->join('genders', 'gender_id', '=', 'gender_id')
+                            ->join('states', 'state_id', '=', 'state_id')
+                            ->join('salaries', 'salary_id', '=', 'salary_id')
+                            ->select('employees.*','departments.*','divisions.*', 'cities.*', 'countries.*', 'genders.*', 'states.*', 'salaries.*')
+                            ->find($id);
         return view('employee.show')->with('employee',$employee);
     }
 
@@ -139,7 +158,7 @@ class EmployeesController extends Controller
             //Delete the previous image
             Storage::delete('public/employee_images/'.$employee->picture);
         }else{
-            $fileNameToStore = '';
+            $fileNameToStore = $old_picture;
         }
 
         $this->setEmployee($employee,$request,$fileNameToStore);
@@ -185,8 +204,8 @@ class EmployeesController extends Controller
      */
     private function validateRequest($request,$id){
         return $this->validate($request,[
-            'first_name'     =>  'required|min:3|max:50',
-            'last_name'      =>  'required|min:3|max:50',
+            'first_name'     =>  'required|max:50',
+            'last_name'      =>  'required|max:50',
             'age'            =>  'required|min:2|max:2',
             'address'        =>  'required|min:10|max:500',
             'phone'          =>  'required|max:13',
@@ -200,7 +219,7 @@ class EmployeesController extends Controller
             'join_date'      =>  'required',
             'birth_date'     =>  'required',
             'email'          =>  'required|email|unique:employees,email,'.($id ? : '' ).'|max:250',
-            'picture'        =>  ($request->hasFile('picture') ? 'required|image|max:1999' : '')
+            'picture'        =>  ($request->hasFile('picture') ?'required|image|mimes:jpg,png,jpeg,gif,svg|max:1999':'')
         ]);
     }
 
